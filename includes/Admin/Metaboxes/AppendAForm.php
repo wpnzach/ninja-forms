@@ -15,7 +15,11 @@ final class NF_Admin_Metaboxes_AppendAForm extends NF_Abstracts_Metabox
 
     public function append_form( $content )
     {
-        $post = isset($GLOBALS['post']) ? $GLOBALS['post'] : NULL;;
+		if ( isset( $GLOBALS[ 'post' ] ) ) {
+			$post = $GLOBALS[ 'post' ];
+		} else {
+			$post = NULL;
+		}
 
         if( ! $post || ! is_object( $post ) ) return $content;
 
