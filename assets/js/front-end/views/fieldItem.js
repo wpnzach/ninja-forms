@@ -217,7 +217,18 @@ define( [], function() {
 
 					// use jQuery().text() to make sure help_text has actual
 					// text and not just HTML tags.
-					if ( 'undefined' != typeof this.help_text && 0 != jQuery.trim( jQuery(this.help_text).text() ).length ) {
+					var check_text_par = document.createElement( 'p' );
+					var temp = jQuery( this.help_text ).text();
+					if( 0 != jQuery.trim( temp ).length ) {
+						var check_text_node = document.createTextNode( temp );
+						check_text_par.appendChild( check_text_node );
+					} else if( 0 == jQuery.trim( temp ).length && 'undefined' == typeof jQuery( this.help_text ).html() ) {
+						var check_text_node = document.createTextNode( this.help_text );
+						check_text_par.appendChild( check_text_node );
+					}
+
+
+					if ( 'undefined' != typeof this.help_text && 0 != jQuery.trim( jQuery( check_text_par ).text() ).length ) {
 						var icon = document.createElement( 'span' );
 						icon.classList.add( 'fa', 'fa-info-circle', 'nf-help' );
 						icon.setAttribute( 'data-text', this.getHelpText() );
