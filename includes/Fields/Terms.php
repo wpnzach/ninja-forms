@@ -108,7 +108,7 @@ class NF_Fields_Terms extends NF_Fields_ListCheckbox
         $this->_settings[ 'taxonomy_terms' ] = array(
             'name' => 'taxonomy_terms',
             'type' => 'fieldset',
-            'label' => __( 'Available Terms' ),
+            'label' => __( 'Available Terms', 'ninja-forms' ),
             'width' => 'full',
             'group' => 'primary',
             'settings' => $term_settings
