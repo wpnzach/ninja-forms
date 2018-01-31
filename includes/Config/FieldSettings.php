@@ -314,7 +314,7 @@ return apply_filters( 'ninja_forms_field_settings', array(
                 'name' => 'input_limit_msg',
                 'type' => 'textbox',
                 'label' => __( 'Text to Appear After Counter', 'ninja-forms' ),
-                'placeholder' => __( 'Character(s) left' ),
+                'placeholder' => __( 'Character(s) left', 'ninja-forms' ),
                 'width' => 'full',
                 'value' => __( 'Character(s) left', 'ninja-forms' )
             )
