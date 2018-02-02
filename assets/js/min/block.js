@@ -21,16 +21,20 @@
 
 		// This function sets up the block HTML(what you see in the editor)
 		edit: function( props ) {
-			var nf_form_id = '',
-				children,
+			var children,
 				options;
 
 			function setFormId( event ) {
 				// Get the ID value from the select element
 				var selected = event.target.querySelector( 'option:checked' );
+				var tmpId = selected.value;
+				var shortCodeStr = '';
 
 				// set the nf_form_id prop value with the new ID selected
-				props.setAttributes( { nf_form_id: "[ninja_form id=" + selected.value + "]" } );
+				if ( 0 !== tmpId.length ) {
+					shortCodeStr = "[ninja_form id=" + tmpId + "]";
+				}
+				props.setAttributes( { nf_form_id: shortCodeStr } );
 				event.preventDefault();
 			}
 
@@ -57,7 +61,7 @@
 
 			options = [];
 			// create the options for the form dropdown
-			options.push( el( 'option', null, '- Select -' ) );
+			options.push( el( 'option', { value: '' }, '- Select -' ) );
 
 			// iterate over the form data passed from PHP
 			_.each( ninja_forms, function( nf_form ) {
