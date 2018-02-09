@@ -45,22 +45,15 @@ define( ['models/fields/typeSectionCollection'], function( fieldTypeSectionColle
 				] );
                 
                 // Declare array of fields to hide.
-                // TODO: We should offload this to somewhere configurable later.
-//                var hiddenFields = [ 'creditcard',
-//                                     'creditcardcvc',
-//                                     'creditcardexpiration',
-//                                     'creditcardfullname',
-//                                     'creditcardnumber',
-//                                     'creditcardzip' ];
-                var hiddenFields = [];
-                
-                // Seach our results of hidden fields.
-                for ( var i = filteredSectionCollection.models[ 0 ].get( 'fieldTypes' ).length; i >= 0; i-- ) {
+                var hiddenFields = nfRadio.channel( 'app' ).request( 'update:hiddenFields' ) || [];
+
+                // Search our results of hidden fields.
+                for ( var i = filteredSectionCollection.models[ 0 ].get( 'fieldTypes' ).length -1; i >= 0; i-- ) {
                     var target = hiddenFields.indexOf( filteredSectionCollection.models[ 0 ].get( 'fieldTypes' )[ i ] );
                     // If we find any...
                     if ( -1 < target ) {
                         // Remove them from the collection.
-                        filteredSectionCollection.models[ 0 ].get( 'fieldTypes' ).splice( target, 1 );
+                        filteredSectionCollection.models[ 0 ].get( 'fieldTypes' ).splice( i, 1 );
                     }
                 }
 
