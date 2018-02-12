@@ -117,6 +117,7 @@ For help and video tutorials, please visit our website: [Ninja Forms Documentati
 
 * Localized several strings for translation that had previously been missed.
 * Radio and checkbox lists will now properly save updates made on the edit submission page.
+* Resolved an issue that sometimes caused excessive page load times in the WordPress admin.
 
 *Changes:*
 
@@ -130,6 +131,7 @@ For help and video tutorials, please visit our website: [Ninja Forms Documentati
 
 * Localized several strings for translation that had previously been missed.
 * Radio and checkbox lists will now properly save updates made on the edit submission page.
+* Resolved an issue that sometimes caused excessive page load times in the WordPress admin.
 
 *Changes:*
 
