@@ -38,8 +38,13 @@ class NF_FormBlock {
 				$nf_form->get_setting( 'title' ) );
 			$nf_forms[] = $tmpArray;
 		}
-
+		$block_logo = NF_PLUGIN_URL . 'assets/img/nf-logo-dashboard.png';
+		$thumbnail_logo = NF_PLUGIN_URL . 'assets/img/ninja-forms-app-header-logo.png';
 		// Pass form id and title data to the javascript
-		wp_localize_script( 'nf-block', 'ninja_forms', $nf_forms );
+		wp_localize_script( 'nf-block', 'ninja_forms', array(
+			'nf_forms' => $nf_forms,
+			'block_logo'     => $block_logo,
+			'thumbnail_logo' => $thumbnail_logo
+		) );
 	}
 }

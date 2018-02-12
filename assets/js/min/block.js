@@ -8,7 +8,7 @@
 	blocks.registerBlockType( 'ninja-forms/forms', {
 		title: 'Ninja Forms',
 		icon: 'edit',
-		category: 'widgets',
+		category: 'common',
 		attributes: {
 			nf_form_id: {
 				type: 'string',
@@ -56,15 +56,17 @@
 			// rendered in the block
 			children = [];
 
-			// label for the form dropdown
-			children.push(el('label', {for: 'nf_form_id'}, 'Ninja Form'));
+			var containerDiv = el( 'div', {style : {width: '100%'}}, el( 'img',
+				{ src: ninja_forms.block_logo}) );
+
+			children.push(containerDiv);
 
 			options = [];
 			// create the options for the form dropdown
 			options.push( el( 'option', { value: '' }, '- Select -' ) );
 
 			// iterate over the form data passed from PHP
-			_.each( ninja_forms, function( nf_form ) {
+			_.each( ninja_forms.nf_forms, function( nf_form ) {
 				options.push( el( 'option' , { value: nf_form.id }, nf_form.title + " (ID: " + nf_form.id + ")" ) );
 
 			});
@@ -72,6 +74,7 @@
 			// create a select element, get the value that was last saved,
 			// and append the options
 			children.push( el( 'select', {
+						style: { width: '100%' },
 						name: 'nf_form_id',
 						id: 'nf_form_id',
 						value: getElementValue( props ),
