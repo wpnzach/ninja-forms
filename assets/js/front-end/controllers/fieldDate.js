@@ -10,7 +10,7 @@ define([], function() {
             var dateFormat = view.model.get( 'date_format' );
 
             // For "default" date format, convert PHP format to JS compatible format.
-            if( 'default' == dateFormat ){
+            if( '' == dateFormat || 'default' == dateFormat ){
                 dateFormat = this.convertDateFormat( nfi18n.dateFormat );
             }
 
