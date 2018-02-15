@@ -335,7 +335,20 @@ define(['models/calcCollection'], function( CalcCollection ) {
 			var that = this;
 			if ( 'undefined' != typeof this.displayFields[ calcModel.get( 'name' ) ] ) {
 				_.each( this.displayFields[ calcModel.get( 'name' ) ], function( fieldModel ) {
-					var value = fieldModel.get( 'default' );
+					var value = fieldModel.get( 'value' );
+
+					// This is a fix for the issue of the merge tags being
+					// display
+
+					// Find spans with calc data-key values
+					var spans = value.match( new RegExp( /<span data-key="calc:(.*?)<\/span>/g ));
+					_.each( spans, function( spanVar ) {
+						// transform the span back into a merge tag
+						var tmpCalcTag = "{" + spanVar.replace("<span" +
+							" data-key=\"", "" ).replace( /">(.*?)<\/span>/, "" ) + "}";
+
+						value = value.replace( spanVar, tmpCalcTag );
+					} );
 					var calcs = value.match( new RegExp( /{calc:(.*?)}/g ) );
 					_.each( calcs, function( calc ) {
 //						var rounding = false;
@@ -361,7 +374,11 @@ define(['models/calcCollection'], function( CalcCollection ) {
                         if( 'undefined' != typeof( calcValue ) ) {
                             calcValue = that.applyLocaleFormatting( calcValue );
                         }
-						value = value.replace( re, calcValue );
+                        // We replace the merge tag with the value
+						// surrounded by a span so that we can still find it
+						// and not affect itself or other field merge tags
+						value = value.replace( re, "<span data-key=\"calc:" + name + "\">"
+							+ calcValue + "</span>" );
 					} );
 					fieldModel.set( 'value', value );
 					if ( ! that.init[ calcModel.get( 'name' ) ] ) {
