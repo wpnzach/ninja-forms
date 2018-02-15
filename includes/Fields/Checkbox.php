@@ -167,9 +167,9 @@ class NF_Fields_Checkbox extends NF_Abstracts_Input
          * These checks are for checkbox fields that were created before version 3.2.7.
          */
         } elseif ( 1 == $value  ) {
-            return 1;
+            return __( 'checked', 'ninja-forms' );
         } elseif ( 0 == $value ) {
-            return 0;
+            return __( 'unchecked', 'ninja-forms' );
         }
     }
 }
