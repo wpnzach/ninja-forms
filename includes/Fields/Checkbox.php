@@ -53,7 +53,7 @@ class NF_Fields_Checkbox extends NF_Abstracts_Input
      */
     public function admin_form_element( $id, $value )
     {
-        // If the checkboxes value is one...
+        // If the checkboxes value is 1 or on...
         if( 'on' == $value || 1 == $value ) {
             // ...this variable to checked.
             $checked = 'checked';
