@@ -250,7 +250,7 @@ return apply_filters( 'ninja_forms_field_settings', array(
                 'value' => 'custom',
             ),
         ),
-        'value' => '',
+        'value' => 'default',
     ),
     /*
      * CUSTOM MASK
