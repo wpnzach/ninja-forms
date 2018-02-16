@@ -42,7 +42,9 @@ class NF_AJAX_Controllers_Submission extends NF_Abstracts_Controller
 
         $this->_form_id = $this->_form_data['id'];
 
+        // If we don't have a numeric form ID...
         if ( ! is_numeric( $this->_form_id ) ) {
+            // Kick the request out without processing.
             $this->_errors[] = __( 'Form does not exist.', 'ninja-forms' );
             $this->_respond();
         }
@@ -468,10 +470,14 @@ class NF_AJAX_Controllers_Submission extends NF_Abstracts_Controller
         return $this->_form_data[ 'settings' ][ 'is_preview' ];
     }
 
+    /*
+     * Overwrite method for parent class.
+     */
     protected function _respond( $data = array() )
     {
         // Set a content type of JSON for the purpose of previnting XSS attacks.
         header( 'Content-Type: application/json' );
+        // Call the parent method.
         parent::_respond();
     }
 }

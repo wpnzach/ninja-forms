@@ -47,7 +47,6 @@ abstract class NF_Abstracts_Controller
      */
     protected function _respond( $data = array() )
     {
-
         if( empty( $data ) ){
             $data = $this->_data;
         }
