@@ -210,7 +210,8 @@ define( [], function() {
 
 				getHelpText: function() {
 					// this.help_text = jQuery( this.help_text ).html();
-					return ( 'undefined' != typeof this.help_text ) ? this.help_text.replace(/"/g, "&quot;") : '';
+					// return ( 'undefined' != typeof this.help_text ) ? this.help_text.replace(/"/g, "&quot;") : '';
+					return ( 'undefined' != typeof this.help_text ) ? this.help_text : '';
 				},
 
 				maybeRenderHelp: function() {
@@ -219,10 +220,15 @@ define( [], function() {
 					// text and not just HTML tags.
 					var check_text_par = document.createElement( 'p' );
                     check_text_par.innerHTML = this.help_text;
-                    check_text_par.innerHTML = check_text_par.innerText || check_text_par.textContent;
 
+                    var shouldRenderHelpText = false;
+                    // Check for text or image tags
+					if ( 0 != jQuery.trim( jQuery( check_text_par ).text() ).length
+						|| 0 < jQuery( check_text_par ).find('img').length ) {
+                    	shouldRenderHelpText = true;
+                    }
 
-					if ( 'undefined' != typeof this.help_text && 0 != jQuery.trim( jQuery( check_text_par ).text() ).length ) {
+					if ( 'undefined' != typeof this.help_text && shouldRenderHelpText ) {
 						var icon = document.createElement( 'span' );
 						icon.classList.add( 'fa', 'fa-info-circle', 'nf-help' );
 						icon.setAttribute( 'data-text', this.getHelpText() );
