@@ -42,6 +42,11 @@ class NF_AJAX_Controllers_Submission extends NF_Abstracts_Controller
 
         $this->_form_id = $this->_form_data['id'];
 
+        if ( ! is_numeric( $this->_form_id ) ) {
+            $this->_errors[] = __( 'Form does not exist.', 'ninja-forms' );
+            $this->_respond();
+        }
+
         if( $this->is_preview() ) {
 
             $this->_form_cache = get_user_option( 'nf_form_preview_' . $this->_form_id );
