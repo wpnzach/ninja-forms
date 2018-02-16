@@ -467,4 +467,11 @@ class NF_AJAX_Controllers_Submission extends NF_Abstracts_Controller
         if( ! isset( $this->_form_data[ 'settings' ][ 'is_preview' ] ) ) return false;
         return $this->_form_data[ 'settings' ][ 'is_preview' ];
     }
+
+    protected function _respond( $data = array() )
+    {
+        // Set a content type of JSON for the purpose of previnting XSS attacks.
+        header( 'Content-Type: application/json' );
+        parent::_respond();
+    }
 }

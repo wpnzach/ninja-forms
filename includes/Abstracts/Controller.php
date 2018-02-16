@@ -47,8 +47,6 @@ abstract class NF_Abstracts_Controller
      */
     protected function _respond( $data = array() )
     {
-        // Set a content type of JSON for the purpose of previnting XSS attacks.
-        header( 'Content-Type: application/json' );
 
         if( empty( $data ) ){
             $data = $this->_data;
