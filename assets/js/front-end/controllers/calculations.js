@@ -337,8 +337,10 @@ define(['models/calcCollection'], function( CalcCollection ) {
 				_.each( this.displayFields[ calcModel.get( 'name' ) ], function( fieldModel ) {
 					var value = fieldModel.get( 'value' );
 
-					// This is a fix for the issue of the merge tags being
-					// display
+					/*
+					 This is a fix for the issue of the merge tags being
+					 display'd
+					 */
 
 					// Find spans with calc data-key values
 					var spans = value.match( new RegExp( /<span data-key="calc:(.*?)<\/span>/g ));
@@ -374,9 +376,11 @@ define(['models/calcCollection'], function( CalcCollection ) {
                         if( 'undefined' != typeof( calcValue ) ) {
                             calcValue = that.applyLocaleFormatting( calcValue );
                         }
-                        // We replace the merge tag with the value
-						// surrounded by a span so that we can still find it
-						// and not affect itself or other field merge tags
+                        /*
+                         * We replace the merge tag with the value
+						 * surrounded by a span so that we can still find it
+						 * and not affect itself or other field merge tags
+						*/
 						value = value.replace( re, "<span data-key=\"calc:" + name + "\">"
 							+ calcValue + "</span>" );
 					} );
