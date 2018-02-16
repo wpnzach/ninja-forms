@@ -125,7 +125,7 @@ define([], function() {
 			    cache: false,
 			   	success: function( data, textStatus, jqXHR ) {
 			   		try {
-				   		var response = jQuery.parseJSON( data );
+				   		var response = data;
 				        nfRadio.channel( 'forms' ).trigger( 'submit:response', response, textStatus, jqXHR, formModel.get( 'id' ) );
 				    	nfRadio.channel( 'form-' + formModel.get( 'id' ) ).trigger( 'submit:response', response, textStatus, jqXHR );
 				    	jQuery( document ).trigger( 'nfFormSubmitResponse', { response: response, id: formModel.get( 'id' ) } );
