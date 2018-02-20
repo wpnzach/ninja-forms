@@ -34,10 +34,31 @@ define([], function() {
 
         updateFieldMergeTags: function( fieldModel ) {
             _.each( this.htmlFields, function( htmlFieldModel ){
-                var value = htmlFieldModel.get( 'default' );
+                var value = htmlFieldModel.get( 'value' );
                _.each( this.trackedMergeTags, function( fieldModel ){
+
+                   /* Search the value for any spans with mergetag data-key
+                   * values
+                   */
+                   var spans = value.match( new RegExp( /<span data-key="field:(.*?)<\/span>/g ) );
+	               _.each( spans, function( spanVar ) {
+	                   /* See if the span string contains the current
+                       * fieldModel's key. If so replace the span with a
+                       * merge tag for evaluation.
+                       */
+                       if( -1 < spanVar.indexOf( "data-key=\"field:" + fieldModel.get( 'key' ) ) ) {
+	                       value = value.replace( spanVar, "{field:" + fieldModel.get( 'key' ) + "}" );
+                       }
+	               } );
+
                     var mergeTag = '{field:' + fieldModel.get( 'key' ) + '}';
-                    value = value.replace( mergeTag, fieldModel.get( 'value' ) );
+	               /* We replace the merge tag with the value
+	               * surrounded by a span so that we can still find it
+	               * and not affect itself or other field merge tags
+	               */
+                    value = value.replace( mergeTag, "<span data-key=\"field:"
+                        + fieldModel.get( 'key' ) + "\">"
+                        + fieldModel.get( 'value' ) + "</span>" );
                }, this ) ;
                htmlFieldModel.set( 'value', value );
                htmlFieldModel.trigger( 'reRender' );
