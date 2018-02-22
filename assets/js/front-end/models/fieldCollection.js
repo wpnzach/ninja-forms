@@ -12,6 +12,8 @@ define( ['models/fieldModel'], function( fieldModel ) {
 
 		validateFields: function() {
 			_.each( this.models, function( fieldModel ) {
+				// added here for help with multi-part part validation
+				fieldModel.set( 'clean', false );
 				nfRadio.channel( 'submit' ).trigger( 'validate:field', fieldModel );
 			}, this );
 		},
