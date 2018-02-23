@@ -7,7 +7,7 @@
 	// Register our Gutenberg block
 	blocks.registerBlockType( 'ninja-forms/forms', {
 		title: 'Ninja Forms',
-		icon: 'edit',
+		icon: 'feedback',
 		category: 'common',
 		attributes: {
 			nf_form_id: {
