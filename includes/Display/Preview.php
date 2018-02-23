@@ -48,6 +48,10 @@ final class NF_Display_Preview
     {
         if ( ! is_user_logged_in() ) return __( 'You must be logged in to preview a form.', 'ninja-forms' );
 
+	    if( ! is_numeric( $this->_form_id ) ) {
+		    return __( 'You must provide a valid form ID.', 'ninja-forms' );
+	    }
+
         return do_shortcode( "[nf_preview id='{$this->_form_id}']" );
     }
 
