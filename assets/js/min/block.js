@@ -31,7 +31,9 @@
 
         var formID = props.attributes.formID;
 
-        if( ! formID ) formID = 1; // Default.
+        var children = [];
+
+        if( ! formID ) formID = ''; // Default.
 
 		function onFormChange( newFormID ) {
 			// updates the form id on the props
@@ -43,17 +45,29 @@
             el( SelectControl, { label: 'Form ID', value: formID, options: ninjaFormsBlock.forms, onChange: onFormChange } )
         );
 
+
 		/**
 		 * Create the div container, add an overlay so the user can interact
 		 * with the form in Gutenberg, then render the iframe with form
 		 */
+		if( '' === formID ) {
+			children.push( el( 'div', {style : {width: '100%'}}, el( 'img',
+				{ src: ninjaFormsBlock.block_logo}),
+				el( SelectControl, { value: formID, options: ninjaFormsBlock.forms, onChange: onFormChange })
+			) );
+		} else {
+			children.push(
+				el( 'div', { className: 'nf-iframe-container' },
+					el( 'div', { className: 'nf-iframe-overlay' } ),
+					el( 'iframe', { src: ninjaFormsBlock.siteUrl + '?nf_preview_form='
+						+ formID + '&nf_iframe', height: '0', width: '500', scrolling: 'no' })
+				)
+			)
+		}
 		return [
-            el( 'div', { className: 'nf-iframe-container' },
-            el( 'div', { className: 'nf-iframe-overlay' } ),
-            el( 'iframe', { src: ninjaFormsBlock.siteUrl + '?nf_preview_form='
-	            + formID + '&nf_iframe', height: '0', width: '500', scrolling: 'no' })
-        ),
-            !! focus && inspectorControls
+			children,
+			// inspectorControls
+			!! focus && inspectorControls
         ];
 		},
 
@@ -65,8 +79,11 @@
 			/**
 			 * we're essentially just adding a short code, here is where
 			 * it's save in the editor
+			 *
+			 * Returning raw HTML is deprecated and recommended to use the
+			 * RawHTML component now
 			 */
-			return '[ninja_forms id="' + formID + '"]';
+			return el( 'RawHTML', { content: '[ninja_forms id=\"' + formID + '\"]' });
 		}
 	} );
 

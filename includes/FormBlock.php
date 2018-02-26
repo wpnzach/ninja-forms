@@ -11,7 +11,7 @@ class NF_FormBlock {
 		// load the preview information and form
 		add_action( 'wp_head', array( $this, 'load_preview_data' ) );
 		// load the iframe containing the iframe
-		add_action( 'init', array( $this, 'load_preview_iframe' ) );
+//		add_action( 'init', array( $this, 'load_preview_iframe' ) );
 	}
 
 	function nf_form_block_load() {
@@ -49,7 +49,10 @@ class NF_FormBlock {
 		wp_enqueue_script( 'ninja-forms-block' );
 
 		$forms = array();
-
+		$forms[] = array (
+			'value' => '',
+			'label' => '-- Select a Form --',
+		);
 		foreach( Ninja_Forms()->form()->get_forms() as $form ){
 			$forms[] = array (
 				'value' => $form->get_id(),
@@ -57,9 +60,14 @@ class NF_FormBlock {
 			);
 		}
 
+		$block_logo = NF_PLUGIN_URL . 'assets/img/nf-logo-dashboard.png';
++		$thumbnail_logo = NF_PLUGIN_URL . 'assets/img/ninja-forms-app-header-logo.png';
+
 		wp_localize_script( 'ninja-forms-block', 'ninjaFormsBlock', array(
 			'forms' => $forms,
-			'siteUrl' => get_site_url()
+			'siteUrl' => get_site_url(),
+			'block_logo'     => $block_logo,
+			'thumbnail_logo' => $thumbnail_logo
 		) );
 		wp_enqueue_style( 'ninja-forms-block-style' );
 		wp_enqueue_style( 'ninja-forms-block-editor' );
