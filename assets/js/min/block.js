@@ -80,10 +80,11 @@
 			 * we're essentially just adding a short code, here is where
 			 * it's save in the editor
 			 *
-			 * Returning raw HTML is deprecated and recommended to use the
-			 * RawHTML component now
+			 * return content wrapped in DIV b/c raw HTML is unsupported
+			 * going forward
 			 */
-			return el( 'RawHTML', { content: '[ninja_forms id=\"' + formID + '\"]' });
+			var returnHTML = '[ninja_forms id=' + parseInt( formID ) + ']';
+			return el( 'div', null, returnHTML);
 		}
 	} );
 
