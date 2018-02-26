@@ -50,7 +50,8 @@
 		return [
             el( 'div', { className: 'nf-iframe-container' },
             el( 'div', { className: 'nf-iframe-overlay' } ),
-            el( 'iframe', { src: ninjaFormsBlock.siteUrl + '?nf_preview_form=' + formID + '&nf_iframe', height: '0', width: '500' })
+            el( 'iframe', { src: ninjaFormsBlock.siteUrl + '?nf_preview_form='
+	            + formID + '&nf_iframe', height: '0', width: '500', scrolling: 'no' })
         ),
             !! focus && inspectorControls
         ];
