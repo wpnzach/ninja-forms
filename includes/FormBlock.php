@@ -48,12 +48,13 @@ class NF_FormBlock {
 		 * */
 		wp_enqueue_script( 'ninja-forms-block' );
 
-		$forms = [];
+		$forms = array();
+
 		foreach( Ninja_Forms()->form()->get_forms() as $form ){
-			$forms[] = [
+			$forms[] = array (
 				'value' => $form->get_id(),
 				'label' => $form->get_setting( 'title' ),
-			];
+			);
 		}
 
 		wp_localize_script( 'ninja-forms-block', 'ninjaFormsBlock', array(
