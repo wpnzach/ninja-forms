@@ -7,7 +7,8 @@
 
 	var el = element.createElement, // function to create elements
       // TextControl = blocks.InspectorControls.TextControl, // not needed
-      SelectControl = blocks.InspectorControls.SelectControl, // select control
+
+      SelectControl = components.SelectControl, // select control
       InspectorControls = blocks.InspectorControls, // sidebar controls
       Sandbox = components.Sandbox; // needed to register the block
 
@@ -49,7 +50,7 @@
 		return [
             el( 'div', { className: 'nf-iframe-container' },
             el( 'div', { className: 'nf-iframe-overlay' } ),
-            el( 'iframe', { src: '/?nf_preview_form=' + formID + '&nf_iframe', height: '0', width: '500' })
+            el( 'iframe', { src: ninjaFormsBlock.siteUrl + '?nf_preview_form=' + formID + '&nf_iframe', height: '0', width: '500' })
         ),
             !! focus && inspectorControls
         ];

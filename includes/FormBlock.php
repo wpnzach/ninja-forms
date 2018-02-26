@@ -21,7 +21,6 @@ class NF_FormBlock {
 
 	function nf_form_block() {
 
-
 		$js_dir  = Ninja_Forms::$url . 'assets/js/min/';
 		$css_dir = Ninja_Forms::$url . 'assets/css/';
 
@@ -56,8 +55,10 @@ class NF_FormBlock {
 				'label' => $form->get_setting( 'title' ),
 			];
 		}
+
 		wp_localize_script( 'ninja-forms-block', 'ninjaFormsBlock', array(
 			'forms' => $forms,
+			'siteUrl' => get_site_url()
 		) );
 		wp_enqueue_style( 'ninja-forms-block-style' );
 		wp_enqueue_style( 'ninja-forms-block-editor' );
