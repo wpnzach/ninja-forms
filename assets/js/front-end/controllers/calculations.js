@@ -335,7 +335,19 @@ define(['models/calcCollection'], function( CalcCollection ) {
 			var that = this;
 			if ( 'undefined' != typeof this.displayFields[ calcModel.get( 'name' ) ] ) {
 				_.each( this.displayFields[ calcModel.get( 'name' ) ], function( fieldModel ) {
-					var value = fieldModel.get( 'value' );
+
+					var value = '';
+
+					/**
+					 * if we have a html field, we want to use the actual
+					 * value and re-evaluate
+				    **/
+					if( "html" === fieldModel.get( 'type' ) ) {
+						value = fieldModel.get( 'value' );
+					} else {
+						// if not a html field, use default to re-evaluate
+						value = fieldModel.get( 'default' );
+					}
 
 					/*
 					 This is a fix for the issue of the merge tags being
@@ -380,9 +392,16 @@ define(['models/calcCollection'], function( CalcCollection ) {
                          * We replace the merge tag with the value
 						 * surrounded by a span so that we can still find it
 						 * and not affect itself or other field merge tags
+						 *
+						 * Unless this isn't a html field, then we just set
+						  * value to calcValue
 						*/
-						value = value.replace( re, "<span data-key=\"calc:" + name + "\">"
-							+ calcValue + "</span>" );
+                        if( "html" === fieldModel.get( 'type' ) ) {
+	                        value = value.replace(re, "<span data-key=\"calc:" + name + "\">"
+		                        + calcValue + "</span>");
+                        } else {
+                        	value = calcValue;
+                        }
 					} );
 					fieldModel.set( 'value', value );
 					if ( ! that.init[ calcModel.get( 'name' ) ] ) {
